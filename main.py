@@ -34,7 +34,6 @@ def load_vgg(sess, vgg_path):
     # TODO: Implement function
     #   Use tf.saved_model.loader.load to load the model and weights
 
-    print("Inside load VGG function")
     vgg_tag = 'vgg16'
     vgg_input_tensor_name = 'image_input:0'
     vgg_keep_prob_tensor_name = 'keep_prob:0'
@@ -50,7 +49,6 @@ def load_vgg(sess, vgg_path):
     vgg_layer_4 = graph.get_tensor_by_name(vgg_layer4_out_tensor_name)
     vgg_layer_7 = graph.get_tensor_by_name(vgg_layer7_out_tensor_name)
 
-    print("Done !!!, Load VGG net")
     return In, keep_prob, vgg_layer_3, vgg_layer_4, vgg_layer_7
 
 tests.test_load_vgg(load_vgg, tf)
@@ -66,7 +64,6 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     :return: The Tensor for the last layer of output
     """
     # TODO: Implement function
-    print("Inside Layer Function")
     conv_1by1 = tf.layers.conv2d(vgg_layer7_out, num_classes, 1, strides=(1,1), padding='same',
          kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3), kernel_initializer=tf.truncated_normal_initializer(stddev=0.01))
 
@@ -91,7 +88,6 @@ def layers(vgg_layer3_out, vgg_layer4_out, vgg_layer7_out, num_classes):
     output = tf.layers.conv2d_transpose(output, num_classes, 16, strides=(8, 8), padding='same',
          kernel_regularizer=tf.contrib.layers.l2_regularizer(1e-3), kernel_initializer=tf.truncated_normal_initializer(stddev=0.01))
 
-    print(" Done !!!, Sucessfully created FCN")
     return output
 tests.test_layers(layers)
 
@@ -105,7 +101,6 @@ def optimize(nn_last_layer, correct_label, learning_rate_1, num_classes):
     :param num_classes: Number of classes to classify
     :return: Tuple of (logits, train_op, cross_entropy_loss)
     """
-    print("Inside Optimize function")
     logit = tf.reshape(nn_last_layer, (-1, num_classes))
     correct_label = tf.reshape(correct_label, (-1, num_classes))
     
@@ -114,7 +109,6 @@ def optimize(nn_last_layer, correct_label, learning_rate_1, num_classes):
         logits=logit))
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate_1)
     train_op = optimizer.minimize(cross_entropy_loss)
-    print("Done !!!, Optimize function")
     return logit, train_op, cross_entropy_loss
 tests.test_optimize(optimize)
 
@@ -175,21 +169,6 @@ def train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_l
     loss_graph(iteration, loss)
 tests.test_train_nn(train_nn)
 
-def test_on_video(image_shape, logits, keep_prob, input_image):
-    from moviepy.editor import VideoFileClip
-    from IPython.display import HTML
-    # Restor session
-    saver = tf.train.Saver()
-    with tf.Session() as sess:
-        saver.restore(sess, "/tmp/model.ckpt")
-        print("Model restored.")
-        white_output = 'driving.mp4'
-        clip1 = VideoFileClip("driving_out.mp4")
-        image = helper.gen_test_video(sess, logits, keep_prob, input_image, test_image, image_shape)
-        white_clip = clip1.fl_image(image) #NOTE: this function expects color images!!
-        #%time white_clip.write_videofile(white_output, audio=False)
-        
-
 def run():
     num_classes = 2
     image_shape = (160, 576)
@@ -227,22 +206,13 @@ def run():
 
         # TODO: Train NN using the train_nn function
         sess.run(tf.global_variables_initializer())
-        
-        saver = tf.train.Saver()
-        
         train_nn(sess, epochs, batch_size, get_batches_fn, train_op, cross_entropy_loss, input_image,
              correct_label, keep_prob, learning_rate)
         
-        #Save the model
-        save_path = saver.save(sess, "/tmp/model.ckpt")
-        
-        print("Model saved in file: %s" % save_path)
+
         # TODO: Save inference data using helper.save_inference_samples
         helper.save_inference_samples(runs_dir, data_dir, sess, image_shape, logits, keep_prob, input_image)
         
-        if(video):
-            test_on_video(image_shape, logits, keep_prob, input_image)
-
         # OPTIONAL: Apply the trained model to a video
 if __name__ == '__main__':
     run()

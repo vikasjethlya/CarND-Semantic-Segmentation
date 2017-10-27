@@ -26,7 +26,6 @@ def maybe_download_pretrained_vgg(data_dir):
     Download and extract pretrained vgg model if it doesn't exist
     :param data_dir: Directory to download the model to
     """
-    print("Inside download VGG pretrained net")
     vgg_filename = 'vgg.zip'
     vgg_path = os.path.join(data_dir, 'vgg')
     vgg_files = [
@@ -139,21 +138,6 @@ def save_inference_samples(runs_dir, data_dir, sess, image_shape, logits, keep_p
         sess, logits, keep_prob, input_image, os.path.join(data_dir, 'data_road/testing'), image_shape)
     for name, image in image_outputs:
         scipy.misc.imsave(os.path.join(output_dir, name), image)
-        
-def gen_test_video(sess, logits, keep_prob, input_image, test_image, image_shape):
-    
-    image = scipy.misc.imresize(scipy.misc.imread(test_image), image_shape)
 
-    im_softmax = sess.run(
-            [tf.nn.softmax(logits)],
-            {keep_prob: 1.0, input_image: [image]})
-    im_softmax = im_softmax[0][:, 1].reshape(image_shape[0], image_shape[1])
-    segmentation = (im_softmax > 0.5).reshape(image_shape[0], image_shape[1], 1)
-    mask = np.dot(segmentation, np.array([[0, 255, 0, 127]]))
-    mask = scipy.misc.toimage(mask, mode="RGBA")
-    street_im = scipy.misc.toimage(image)
-    street_im.paste(mask, box=None, mask=mask)
-
-    return np.array(street_im)
     
     

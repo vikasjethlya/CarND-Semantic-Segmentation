@@ -1,0 +1,66 @@
+TensorFlow Version: 1.2.1
+Default GPU Device: /gpu:0
+Tests Passed
+Tests Passed
+Tests Passed
+Tests Passed
+Tests Passed
+Inside download VGG pretrained net
+Hyper Parameters :
+Keep Prob :  0.5 Learning Rate :  0.0001 Batch Size :  32 Epoch :  50
+Training Started...
+Epoch:  1  Loss:  0.726197
+Epoch:  2  Loss:  0.671953
+Epoch:  3  Loss:  0.590873
+Epoch:  4  Loss:  0.405711
+Epoch:  5  Loss:  0.373215
+Epoch:  6  Loss:  0.222384
+Epoch:  7  Loss:  0.238664
+Epoch:  8  Loss:  0.164014
+Epoch:  9  Loss:  0.175855
+Epoch:  10  Loss:  0.12088
+Epoch:  11  Loss:  0.0655715
+Epoch:  12  Loss:  0.0542974
+Epoch:  13  Loss:  0.126457
+Epoch:  14  Loss:  0.110672
+Epoch:  15  Loss:  0.0959281
+Epoch:  16  Loss:  0.0693292
+Epoch:  17  Loss:  0.084117
+Epoch:  18  Loss:  0.0620944
+Epoch:  19  Loss:  0.0727105
+Epoch:  20  Loss:  0.140021
+Epoch:  21  Loss:  0.107891
+Epoch:  22  Loss:  0.0911824
+Epoch:  23  Loss:  0.170936
+Epoch:  24  Loss:  0.107057
+Epoch:  25  Loss:  0.116772
+Epoch:  26  Loss:  0.055919
+Epoch:  27  Loss:  0.145418
+Epoch:  28  Loss:  0.103653
+Epoch:  29  Loss:  0.0831167
+Epoch:  30  Loss:  0.0595955
+Epoch:  31  Loss:  0.0557223
+Epoch:  32  Loss:  0.0907877
+Epoch:  33  Loss:  0.120012
+Epoch:  34  Loss:  0.0456501
+Epoch:  35  Loss:  0.0610295
+Epoch:  36  Loss:  0.0353488
+Epoch:  37  Loss:  0.0578977
+Epoch:  38  Loss:  0.0724188
+Epoch:  39  Loss:  0.0689633
+Epoch:  40  Loss:  0.0290218
+Epoch:  41  Loss:  0.0544396
+Epoch:  42  Loss:  0.0419633
+Epoch:  43  Loss:  0.0292265
+Epoch:  44  Loss:  0.0288412
+Epoch:  45  Loss:  0.0388124
+Epoch:  46  Loss:  0.0282366
+Epoch:  47  Loss:  0.0416061
+Epoch:  48  Loss:  0.0675783
+Epoch:  49  Loss:  0.0762807
+Epoch:  50  Loss:  0.0212692
+Training Completed !!!
+Total Training Time :
+0 Days, 0 Hour, 21 Minute, 29 Seconds
+Loss Graph Generated and saved!!!
+Training Finished. Saving test images to: ./runs/1509100370.9322975
